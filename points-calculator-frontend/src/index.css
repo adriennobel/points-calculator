@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    background-color: darksalmon;
+}
+
+p,
+fieldset {
+    margin: 0;
+}
+
+.App {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.main-component {
+    flex: 1;
+}
+
+.main-selection-container {
+    display: grid;
+    gap: 2vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.main-selection-container input {
+    position: absolute;
+}
+
+.main-selection-container .option label {
+    display: flex;
+    height: 20vh;
+    padding: 1rem 2rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+
+.main-selection-container .option input:checked+label {
+    background-color: antiquewhite;
+}
+
+.main-selection-container .option label:hover {
+    background-color: beige;
+}
+
+.main-selection-container .option label:active {
+    background-color: #eee;
+}
+
+.main-selection-container.selected .option label {
+    height: 5vh;
+}
+
+.App header,
+.App main,
+.App footer {
+    padding: 0 5%;
+}
+
+button {
+    background-color: darkred;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darksalmon;
+}
+
+button:active {
+    background-color: #eee;
+}
+
+.customer-greeting {
+    background: antiquewhite;
+    color: darkred;
+    /* padding: 0.5rem; */
+}
+
+.text-input {
+    background-color: antiquewhite;
+    border: none;
+    border-bottom: 1px solid darkred;
+    padding: 0.25rem;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.calc-period {
+    margin: 0.5rem 0;
+}
+
+.customer-sale-component {
+    margin: 0.5rem 0;
+}
+
+.text-input:focus {
+    border-bottom: 2px solid darkred;
+    outline: none;
+}
+
+.customer-sale-component button {
+    margin-top: 0.5rem;
+}
+
+header,
+footer {
+    text-align: center;
+}

@@ -1,13 +1,13 @@
 import './App.css';
-import NewSale from './components/NewSale';
-import CalculatePoints from './components/CalculatePoints';
+import MainComponent from './components/MainComponent';
 
 function App() {
 
   return (
     <div className="App">
-      <NewSale />
-      <CalculatePoints />
+      <header><h1>Mbougue Store</h1></header>
+      <MainComponent />
+      <footer><p>&copy; 2023 Mbougue, All rights reserved</p></footer>
     </div>
   )
 }

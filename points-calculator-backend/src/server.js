@@ -66,16 +66,15 @@ app.get('/api/customer/check/:customerID', async (req, res) => {
             _id: customerID
         });
 
-        // const result = client.db("points-calculator").collection("CustomerObjects").find();
-        // const found = await result.toArray();
-
         if (result) {
             console.log(result);
-            res.send(`Welcome back, ${result.firstName} (id: ${customerID})`);
-            // res.send(result._id);
+            // res.send(`Welcome back, ${result.firstName} (id: ${customerID})`);
+            res.send(result);
         } else {
             console.log(`${customerID} not found`);
-            res.send(`We didn't find an entry for id: ${customerID}`);
+            // res.send(`We didn't find an entry for id: ${customerID}`);
+            // res.send({ empty: "" });
+            res.send("null");
             // res.sendStatus(404);
         }
     }
@@ -112,6 +111,45 @@ app.post('/api/sale/record', async (req, res) => {
         console.log(`New sale recorded with the following id: ${result.insertedId}`);
     }
 });
+
+
+app.get('/api/transaction/calcpoints/:customerID/:fromdate', async (req, res) => {
+    const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@bookingdaysdb.nvf7jlo.mongodb.net/?retryWrites=true&w=majority`;
+    const client = new MongoClient(uri);
+
+    const { customerID } = req.params;
+    const { fromdate } = req.params;
+
+    try {
+        await client.connect();
+        await calcPoints(client, customerID, fromdate);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+
+    async function calcPoints(client, customerID, fromdate) {
+        const cursor = client.db("points-calculator").collection("TransactionObjects").find({
+            customerID: customerID,
+            date: { $gte: new Date(`${fromdate}`) }
+        });
+
+        const result = await cursor.toArray();
+
+        if (result) {
+            // console.log(result);
+            // res.send(`Welcome back, ${result.firstName} (id: ${customerID})`);
+            res.send(result);
+        } else {
+            console.log(`${customerID} not found`);
+            res.send(`We didn't find an entry for id: ${customerID}`);
+            // res.sendStatus(404);
+        }
+    }
+
+});
+
 
 app.listen(8001, () => {
     console.log('Server is listening on port 8001');
